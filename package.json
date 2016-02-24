@@ -1,0 +1,14 @@
+{
+  "name": "klamry-seed",
+  "private": true,
+  "version": "0.0.1",
+  "description": "A script to seed the \"Domknięte Klamry\" voting - MeetJS Summit best talk contest",
+  "main": "index.js",
+  "author": "Jarek Rencz <jarek.rencz@functionite.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "gh": "^1.12.4",
+    "got": "^6.1.1",
+    "shelljs": "^0.6.0"
+  }
+}
