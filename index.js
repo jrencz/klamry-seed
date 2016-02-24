@@ -48,15 +48,25 @@ const command = talk => `./node_modules/.bin/gh is --new --title '${ escape(titl
 got(source)
   .then(response => JSON.parse(response.body))
   .then(data => {
-    console.log(`There are ${ data.length } issues to be created`);
-    console.log(`Will create ${ limit } issues. Starting from ${ start }`);
+    console.log(`There are ${ data.length } issues in seed`);
+    if (start > 0) {
+      console.log(`With current params it is assumed ${ start } issues were already created`);
+    }
+    console.log(`Will create ${ Math.min((data.length - start), limit) } issues. Starting from ${ start }`);
+    if ((start+limit) < data.length) {
+      console.log('to finish you should run this script again');
+      console.log(`next params: start: ${ start+limit }, limit: ${ limit }`);
+    } else {
+      console.log('You don\'t have to run this script again. This is the' +
+        ' last batch.')
+    }
     data.forEach((talk, i) => {
       // Uncomment this line and comment out the loop below to get raw
       // output which you can then use to call one-by one
       // console.log(command(talk))
 
       // No time for handling rate limits now
-      if (i >= start && i < limit) {
+      if (i >= start && i < (start+limit)) {
         console.log(i, 'will create', talk.title);
         shell.exec(command(talk), {async: true});
       }
